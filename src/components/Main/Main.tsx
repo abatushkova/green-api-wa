@@ -3,9 +3,9 @@ import { useTheme } from '@mui/material/styles';
 import { Box, useMediaQuery } from '@mui/material';
 import Aside from '../Aside/Aside';
 import Content from '../Content/Content';
-// import Header from '../Header/Header';
+import Header from '../Header/Header';
 
-const drawerWidth = 400;
+const drawerWidth = 320;
 
 export default function Main() {
   const theme = useTheme();
@@ -33,7 +33,7 @@ export default function Main() {
         />
       </Box>
       <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-        {/* <Header onDrawerToggle={handleDrawerToggle} /> */}
+        <Header onDrawerToggle={handleDrawerToggle} />
         <Box component="main" sx={{ flex: 1 }}>
           <Content />
         </Box>
