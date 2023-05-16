@@ -41,26 +41,26 @@ export default function Auth() {
             <Grid item>
               <TextField
                 // error
-                // helperText="Incorrect entry"
+                // helperText="Incorrect id"
                 id="idInstance"
                 label="idInstance"
                 variant="outlined"
                 fullWidth
                 value={idInstance}
                 onChange={(e) => setIdInstance(e.target.value)}
-                />
+              />
             </Grid>
             <Grid item>
               <TextField
                 // error
-                // helperText="Incorrect entry"
+                // helperText="Incorrect token"
                 id="apiTokenInstance"
                 label="apiTokenInstance"
                 variant="outlined"
                 fullWidth
                 value={tokenInstance}
                 onChange={(e) => setTokenInstance(e.target.value)}
-                />
+              />
             </Grid>
             <Grid item>
               <Button variant="contained" type="submit" size="large" fullWidth>
