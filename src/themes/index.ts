@@ -58,14 +58,14 @@ theme = {
     MuiDrawer: {
       styleOverrides: {
         paper: {
-          backgroundColor: theme.palette.primary.dark,
+          backgroundColor: theme.palette.gray.main,
         },
       },
     },
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: theme.palette.primary.dark,
+          backgroundColor: theme.palette.gray.main,
         },
       },
     },
