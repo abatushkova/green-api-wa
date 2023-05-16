@@ -1,12 +1,13 @@
 import React from 'react';
-// import ChatPreview from '../ChatPreview/ChatPreview';
-// import ChatInput from '../ChatInput/ChatInput';
+import { Box } from '@mui/material';
+import ChatPreview from '../ChatPreview/ChatPreview';
+import ChatInput from '../ChatInput/ChatInput';
 
 export default function Content() {
   return (
-    <>
-      {/* <ChatPreview /> */}
-      {/* <ChatInput /> */}
-    </>
+    <Box component="main" sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+      <ChatPreview />
+      <ChatInput />
+    </Box>
   );
 }
