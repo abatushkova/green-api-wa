@@ -17,7 +17,7 @@ export default function User() {
   };
 
   return (
-    <Grid container alignItems="center" spacing={1} sx={{ py: 1, px: 2 }}>
+    <Grid container alignItems="center" sx={{ py: 1, px: 2 }}>
       <Grid item>
         <CustomAvatar />
       </Grid>
