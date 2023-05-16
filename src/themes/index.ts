@@ -19,6 +19,10 @@ export let theme = createTheme({
       dark: '#205723',
       contrastText: '#fff',
     },
+    secondary: {
+      light: '#efeae2',
+      main: '#d8f4cc',
+    },
     gray: {
       main: '#f4f5f7',
       dark: '#aaabac',
@@ -101,7 +105,7 @@ theme = {
             color: theme.palette.gray.dark,
           },
           '& .MuiInputBase-multiline': {
-            backgroundColor: theme.palette.primary.main,
+            backgroundColor: theme.palette.white.main,
           }
         },
       }
