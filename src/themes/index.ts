@@ -37,6 +37,11 @@ export let theme = createTheme({
       },
     },
   },
+  mixins: {
+    toolbar: {
+      minHeight: 56,
+    },
+  },
 });
 
 theme = {
