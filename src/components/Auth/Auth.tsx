@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTheme } from '@mui/material/styles';
 import {
   Box,
   Paper,
@@ -10,6 +11,7 @@ import {
 } from '@mui/material';
 
 export default function Auth() {
+  const theme = useTheme();
   const [idInstance, setIdInstance] = useState('');
   const [tokenInstance, setTokenInstance] = useState('');
 
@@ -22,7 +24,7 @@ export default function Auth() {
       flex: 1,
       display: 'flex',
       alignItems: 'center',
-      backgroundColor: '#d8f4cc'
+      backgroundColor: theme.palette.secondary.main
     }}>
       <Container maxWidth="sm">
         <Paper sx={{ py: 5, px: 3 }}>
