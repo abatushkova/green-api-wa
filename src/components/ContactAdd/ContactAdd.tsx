@@ -7,14 +7,52 @@ import {
   Divider,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import { useAppDispatch } from '../../app/hooks';
+import { addContact } from '../../features/contacts/contactsSlice';
+import { checkNumber, createNewNumber } from '../../utils/helpers/initNumber';
+import { createChatId } from '../../utils/helpers/createChatId';
 
 export default function ContactAdd() {
   const theme = useTheme();
   const [number, setNumber] = useState('');
+  const [status, setStatus] = useState('typing');
+  const dispatch = useAppDispatch();
+
+  const setErrorMsg = () => {
+    if (status === 'error' && !number) return 'Please enter phone number';
+    if (status === 'error') return 'Incorrect number';
+
+    return '';
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setStatus('typing');
+    setNumber(e.target.value);
+  }
 
   const handleSubmit =(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('contact added');
+    if (!number.trim()) {
+      setStatus('error');
+      return;
+    }
+
+    if (checkNumber(number)) {
+      const newNumber = createNewNumber(number);
+      const chatId = createChatId(newNumber);
+
+      dispatch(
+        addContact({
+          chatId,
+          phoneNumber: newNumber,
+        })
+      );
+      setStatus('success');
+      setNumber('');
+    } else {
+      setStatus('error');
+      return;
+    }
   };
 
   return (
@@ -28,13 +66,13 @@ export default function ContactAdd() {
         onSubmit={handleSubmit}
       >
         <TextField
-          // error
-          // helperText="Incorrect number"
+          error={status === 'error' ?? 'true'}
+          helperText={setErrorMsg()}
           label="Add number"
           variant="outlined"
           size="small" fullWidth
           value={number}
-          onChange={(e) => setNumber(e.target.value)}
+          onChange={handleChange}
         />
         <IconButton
           aria-label="Add"
