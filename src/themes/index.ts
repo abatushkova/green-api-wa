@@ -110,6 +110,15 @@ theme = {
         },
       }
     },
+    MuiListItemButton: {
+      styleOverrides: {
+        root: {
+          '&.Mui-selected, &.Mui-selected:hover': {
+            backgroundColor: theme.palette.gray.dark,
+          },
+        },
+      },
+    },
     MuiAvatar: {
       styleOverrides: {
         root: {
