@@ -9,15 +9,44 @@ import {
   Button,
   Container,
 } from '@mui/material';
+import { useAppDispatch } from '../../app/hooks';
+import { login } from '../../features/auth/authSlice';
+
+interface IAuthData {
+  idInstance: string;
+  apiTokenInstance: string;
+}
 
 export default function Auth() {
   const theme = useTheme();
-  const [idInstance, setIdInstance] = useState('');
-  const [tokenInstance, setTokenInstance] = useState('');
+  const [isEmpty, setIsEmpty] = useState(false);
+  const [authForm, setAuthForm] = useState<IAuthData>({
+    idInstance: '',
+    apiTokenInstance: '',
+  });
+  const dispatch = useAppDispatch();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAuthForm({
+      ...authForm,
+      [e.target.name]: e.target.value.trim(),
+    });
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  }
+    if (!authForm.idInstance || !authForm.apiTokenInstance) {
+      setIsEmpty(true);
+      return;
+    };
+
+    dispatch(login(authForm));
+    setAuthForm({
+      idInstance: '',
+      apiTokenInstance: '',
+    });
+    setIsEmpty(false);
+  };
 
   return (
     <Box sx={{
@@ -35,33 +64,31 @@ export default function Auth() {
             autoComplete="off"
             container
             direction="column"
-            // justifyContent="center"
-            // alignItems="center"
             spacing={3}
             onSubmit={handleSubmit}
           >
             <Grid item>
               <TextField
-                // error
-                // helperText="Incorrect id"
-                id="idInstance"
+                error = {(isEmpty && !authForm.idInstance) ?? 'true'}
+                helperText={(isEmpty && !authForm.idInstance) ? 'Please enter idInstance' : null}
+                name="idInstance"
                 label="idInstance"
                 variant="outlined"
                 fullWidth
-                value={idInstance}
-                onChange={(e) => setIdInstance(e.target.value)}
+                value={authForm.idInstance}
+                onChange={handleChange}
               />
             </Grid>
             <Grid item>
               <TextField
-                // error
-                // helperText="Incorrect token"
-                id="apiTokenInstance"
+                error = {(isEmpty && !authForm.apiTokenInstance) ?? 'true'}
+                helperText={(isEmpty && !authForm.apiTokenInstance) ? 'Please enter idInstance' : null}
+                name="apiTokenInstance"
                 label="apiTokenInstance"
                 variant="outlined"
                 fullWidth
-                value={tokenInstance}
-                onChange={(e) => setTokenInstance(e.target.value)}
+                value={authForm.apiTokenInstance}
+                onChange={handleChange}
               />
             </Grid>
             <Grid item>
