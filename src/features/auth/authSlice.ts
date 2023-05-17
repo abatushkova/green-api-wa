@@ -1,14 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { loadState, saveState } from "../../app/localStorage";
+import { IUser } from "../../app/types";
 
-interface IAuthState {
-  idInstance: string | null;
-  apiTokenInstance: string | null;
-}
-
-const initialState: IAuthState = {
-  idInstance: loadState() || null,
-  apiTokenInstance: loadState() || null,
+const initialState: IUser = {
+  idInstance: loadState(),
+  apiTokenInstance: loadState(),
 };
 
 export const authSlice = createSlice({
@@ -16,8 +12,8 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     login(
-      state: IAuthState,
-      action: PayloadAction<IAuthState>
+      state: IUser,
+      action: PayloadAction<IUser>
     ) {
       saveState({
         idInstance: action.payload.idInstance,
@@ -30,16 +26,16 @@ export const authSlice = createSlice({
         apiTokenInstance: JSON.stringify(action.payload.apiTokenInstance),
       };
     },
-    logout(state: IAuthState) {
+    logout(state: IUser) {
       saveState({
-        idInstance: null,
-        apiTokenInstance: null,
+        idInstance: '',
+        apiTokenInstance: '',
       });
 
       return {
         ...state,
-        idInstance: null,
-        apiTokenInstance: null,
+        idInstance: '',
+        apiTokenInstance: '',
       }
     },
   }
