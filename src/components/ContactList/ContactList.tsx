@@ -7,26 +7,13 @@ import {
   Box,
 } from '@mui/material';
 import ContactItem from '../ContactItem/ContactItem';
-
-interface IContact {
-  number: number;
-  id: number;
-}
+import { useAppSelector } from '../../app/hooks';
+import { getContacts } from '../../features/contacts/contactsSlice';
 
 export default function ContactList() {
   const theme = useTheme();
   const [selectedContact, setSelectedContact] = useState(-1);
-  const contacts: IContact[] = [
-    {
-      id: 11,
-      number: 12345,
-    },
-    {
-      id: 12,
-      number: 23456,
-    },
-  ];
-  // const contacts: IContact[] = [];
+  const contacts = useAppSelector(getContacts);
 
   const handleContactSelect = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -52,11 +39,11 @@ export default function ContactList() {
         overflow: 'auto'
       }}>
         {contacts.length ? (
-          contacts.map((contact, index) => (
+          contacts.map(({chatId, phoneNumber}, index) => (
             <ContactItem
-              key={contact.id}
+              key={chatId}
               index={index}
-              number={contact.number}
+              number={phoneNumber}
               selected={selectedContact}
               onContactClick={handleContactSelect}
             />
