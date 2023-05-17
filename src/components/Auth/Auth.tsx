@@ -48,6 +48,10 @@ export default function Auth() {
     setIsEmpty(false);
   };
 
+  const hasError = (authInput: string): boolean => {
+    return isEmpty && !authInput;
+  }
+
   return (
     <Box sx={{
       flex: 1,
@@ -69,8 +73,8 @@ export default function Auth() {
           >
             <Grid item>
               <TextField
-                error = {(isEmpty && !authForm.idInstance) ?? 'true'}
-                helperText={(isEmpty && !authForm.idInstance) ? 'Please enter idInstance' : null}
+                error={hasError(authForm.idInstance) ?? 'true'}
+                helperText={hasError(authForm.idInstance) ? 'Please enter idInstance' : null}
                 name="idInstance"
                 label="idInstance"
                 variant="outlined"
@@ -81,8 +85,8 @@ export default function Auth() {
             </Grid>
             <Grid item>
               <TextField
-                error = {(isEmpty && !authForm.apiTokenInstance) ?? 'true'}
-                helperText={(isEmpty && !authForm.apiTokenInstance) ? 'Please enter idInstance' : null}
+                error={hasError(authForm.apiTokenInstance) ?? 'true'}
+                helperText={hasError(authForm.apiTokenInstance) ? 'Please enter apiTokenInstance' : null}
                 name="apiTokenInstance"
                 label="apiTokenInstance"
                 variant="outlined"
