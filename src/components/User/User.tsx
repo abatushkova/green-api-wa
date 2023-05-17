@@ -6,14 +6,18 @@ import {
   IconButton,
 } from '@mui/material';
 import Logout from '@mui/icons-material/Logout';
+import { useAppDispatch } from '../../app/hooks';
+import { logout } from '../../features/auth/authSlice';
 
 const CustomAvatar = styled(Avatar)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
 }));
 
 export default function User() {
+  const dispatch = useAppDispatch();
+
   const handleUserLogout = () => {
-    console.log('logout');
+    dispatch(logout());
   };
 
   return (
