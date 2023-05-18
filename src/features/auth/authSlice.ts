@@ -1,8 +1,9 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { loadState, saveState } from "../../app/localStorage";
-import { IUser } from "../../app/types";
+import { createSlice } from '@reduxjs/toolkit';
+import { loadState, saveState } from '../../app/localStorage';
+import { RootState } from '../../app/store';
+import { User } from '../../app/types';
 
-const initialState: IUser = {
+const initialState: User = {
   idInstance: loadState(),
   apiTokenInstance: loadState(),
 };
@@ -11,22 +12,19 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    login(
-      state: IUser,
-      action: PayloadAction<IUser>
-    ) {
+    login(state, { payload }) {
       saveState({
-        idInstance: action.payload.idInstance,
-        apiTokenInstance: action.payload.apiTokenInstance,
+        idInstance: payload.idInstance,
+        apiTokenInstance: payload.apiTokenInstance,
       });
 
       return {
         ...state,
-        idInstance: action.payload.idInstance,
-        apiTokenInstance: JSON.stringify(action.payload.apiTokenInstance),
+        idInstance: payload.idInstance,
+        apiTokenInstance: payload.apiTokenInstance,
       };
     },
-    logout(state: IUser) {
+    logout(state) {
       saveState({
         idInstance: '',
         apiTokenInstance: '',
@@ -44,3 +42,4 @@ export const authSlice = createSlice({
 export const { login, logout } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;
+export const selectUser = (state: RootState) => state.auth;
