@@ -11,11 +11,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useAppSelector } from '../../app/hooks';
 import { activeChat } from '../../features/chat/chatSlice';
 
-interface IHeaderProps {
+interface HeaderProps {
   onDrawerToggle: () => void;
 }
 
-export default function Header(props: IHeaderProps) {
+export default function Header(props: HeaderProps) {
   const { onDrawerToggle } = props;
   const theme = useTheme();
   const selectedChat = useAppSelector(activeChat);

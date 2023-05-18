@@ -16,10 +16,7 @@ export default function ChatList() {
   const selectedChat = useAppSelector(activeChat);
   const dispatch = useAppDispatch();
 
-  const handleChatSelect = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    phoneNumber: string,
-  ) => {
+  const handleChatSelect = (phoneNumber: string) => {
     dispatch(setActiveChat(phoneNumber))
   };
 

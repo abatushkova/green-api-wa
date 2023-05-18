@@ -17,13 +17,13 @@ const CustomListItem = styled(ListItem)(({ theme }) => ({
   },
 }));
 
-interface IContactProps {
+interface ChatItemProps {
   phoneNumber: string;
   selected: string | null;
-  onChatClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, S: string) => void;
+  onChatClick: (S: string) => void;
 }
 
-export default function ChatItem(props: IContactProps) {
+export default function ChatItem(props: ChatItemProps) {
   const { phoneNumber, selected, onChatClick } = props;
   const dispatch = useAppDispatch();
 
@@ -33,7 +33,7 @@ export default function ChatItem(props: IContactProps) {
     <CustomListItem disablePadding>
       <ListItemButton
         selected={selected === phoneNumber}
-        onClick={(e) => onChatClick(e, phoneNumber)}
+        onClick={() => onChatClick(phoneNumber)}
       >
         <ListItemText>{phoneNumber}</ListItemText>
       </ListItemButton>

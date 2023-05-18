@@ -4,11 +4,11 @@ import ChatPreview from '../ChatPreview/ChatPreview';
 import ChatInput from '../ChatInput/ChatInput';
 import Header from '../Header/Header';
 
-interface IChatProps {
+interface ChatProps {
   onDrawerClick: () => void;
 }
 
-export default function Chat(props: IChatProps) {
+export default function Chat(props: ChatProps) {
   const { onDrawerClick } = props;
 
   return (
