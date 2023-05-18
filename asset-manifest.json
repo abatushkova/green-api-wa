@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/green-api-wa/static/css/main.3b1fe950.css",
-    "main.js": "/green-api-wa/static/js/main.157410ff.js",
+    "main.js": "/green-api-wa/static/js/main.224722b5.js",
     "static/media/roboto-all-500-normal.woff": "/green-api-wa/static/media/roboto-all-500-normal.0ab669b7a0d19b178f57.woff",
     "static/media/roboto-all-700-normal.woff": "/green-api-wa/static/media/roboto-all-700-normal.a457fde362a540fcadff.woff",
     "static/media/roboto-all-400-normal.woff": "/green-api-wa/static/media/roboto-all-400-normal.c5d001fa922fa66a147f.woff",
@@ -36,10 +36,10 @@
     "static/media/roboto-greek-ext-700-normal.woff2": "/green-api-wa/static/media/roboto-greek-ext-700-normal.bd9854c751441ccc1a70.woff2",
     "index.html": "/green-api-wa/index.html",
     "main.3b1fe950.css.map": "/green-api-wa/static/css/main.3b1fe950.css.map",
-    "main.157410ff.js.map": "/green-api-wa/static/js/main.157410ff.js.map"
+    "main.224722b5.js.map": "/green-api-wa/static/js/main.224722b5.js.map"
   },
   "entrypoints": [
     "static/css/main.3b1fe950.css",
-    "static/js/main.157410ff.js"
+    "static/js/main.224722b5.js"
   ]
 }
