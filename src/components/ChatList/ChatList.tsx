@@ -8,12 +8,12 @@ import {
 } from '@mui/material';
 import ContactItem from '../ChatItem/ChatItem';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { getChatList, setActiveChat, activeChat } from '../../features/chat/chatSlice';
+import { selectChatList , setActiveChat, selectActiveChat } from '../../features/chat/chatSlice';
 
 export default function ChatList() {
   const theme = useTheme();
-  const chatList = useAppSelector(getChatList);
-  const selectedChat = useAppSelector(activeChat);
+  const chatList = useAppSelector(selectChatList );
+  const selectedChat = useAppSelector(selectActiveChat);
   const dispatch = useAppDispatch();
 
   const handleChatSelect = (phoneNumber: string) => {

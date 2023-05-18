@@ -6,16 +6,28 @@ import {
   TextField,
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { selectUser } from '../../features/auth/authSlice';
+import { selectActiveChat, sendMessage } from '../../features/chat/chatSlice';
 
 export default function ChatInput() {
   const theme = useTheme();
+  const user = useAppSelector(selectUser);
+  const selectedChat = useAppSelector(selectActiveChat);
+  const dispatch = useAppDispatch();
   const [message, setMessage] = useState('');
 
   const handleSubmit =(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!message.trim()) return;
 
-    console.log('message sent');
+    dispatch(
+      sendMessage({
+        user,
+        phoneNumber: selectedChat,
+        message
+      })
+    );
     setMessage('');
   };
 
@@ -31,7 +43,6 @@ export default function ChatInput() {
       <TextField
         placeholder="Type a message"
         variant="outlined"
-        multiline
         size="small" fullWidth
         value={message}
         onChange={(e) => setMessage(e.target.value)}
