@@ -1,6 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { loadState } from "./localStorage";
-import { rootReducer } from "./rootReducer";
+import { configureStore } from '@reduxjs/toolkit';
+import { loadState } from './localStorage';
+import { rootReducer } from './rootReducer';
 
 export const store = configureStore({
   reducer: rootReducer,
