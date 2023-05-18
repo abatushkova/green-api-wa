@@ -1,8 +1,8 @@
 import React from 'react';
 import { Drawer, DrawerProps } from '@mui/material';
 import User from '../User/User';
-import ContactAdd from '../ContactAdd/ContactAdd';
-import ContactList from '../ContactList/ContactList';
+import ChatItemAdd from '../ChatItemAdd/ChatItemAdd';
+import ChatList from '../ChatList/ChatList';
 
 export default function Aside(props: DrawerProps) {
   const { ...other } = props;
@@ -10,8 +10,8 @@ export default function Aside(props: DrawerProps) {
   return (
     <Drawer variant="permanent" {...other}>
       <User />
-      <ContactAdd />
-      <ContactList />
+      <ChatItemAdd />
+      <ChatList />
     </Drawer>
   );
 }
