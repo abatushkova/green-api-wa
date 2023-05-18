@@ -17,7 +17,7 @@ const CustomAvatar = styled(Avatar)(({ theme }) => ({
 export default function User() {
   const dispatch = useAppDispatch();
 
-  const handleUserLogout = () => {
+  const handleLogout = () => {
     dispatch(setActiveChat(''));
     dispatch(logout());
   };
@@ -31,7 +31,7 @@ export default function User() {
       <Grid item>
         <IconButton
           aria-label="Logout"
-          onClick={handleUserLogout}
+          onClick={handleLogout}
         >
           <Logout />
         </IconButton>
