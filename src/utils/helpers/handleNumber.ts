@@ -1,7 +1,7 @@
 import { loadState } from '../../app/localStorage';
 
 export const checkNumber = (number: string): boolean => {
-  const localContacts = loadState().contacts.list;
+  const localContacts = loadState().chat.chatList;
   const phoneNumbers = localContacts.map((item: any) => item.phoneNumber);
 
   return !!(/^(\+7|8)\d{10}$/.exec(number.trim())) && !phoneNumbers.includes(number);
