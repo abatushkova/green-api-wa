@@ -5,7 +5,7 @@ import Aside from '../Aside/Aside';
 import Chat from '../Chat/Chat';
 import Base from '../Base/Base';
 import { useAppSelector } from '../../app/hooks';
-import { activeChat } from '../../features/chat/chatSlice';
+import { selectActiveChat } from '../../features/chat/chatSlice';
 
 const drawerWidth = 320;
 
@@ -13,7 +13,7 @@ export default function Main() {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
-  const selectedChat = useAppSelector(activeChat);
+  const selectedChat = useAppSelector(selectActiveChat);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

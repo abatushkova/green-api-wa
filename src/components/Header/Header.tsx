@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useAppSelector } from '../../app/hooks';
-import { activeChat } from '../../features/chat/chatSlice';
+import { selectActiveChat } from '../../features/chat/chatSlice';
 
 interface HeaderProps {
   onDrawerToggle: () => void;
@@ -18,7 +18,7 @@ interface HeaderProps {
 export default function Header(props: HeaderProps) {
   const { onDrawerToggle } = props;
   const theme = useTheme();
-  const selectedChat = useAppSelector(activeChat);
+  const selectedChat = useAppSelector(selectActiveChat);
 
   return (
     <AppBar position="sticky" elevation={0}>
