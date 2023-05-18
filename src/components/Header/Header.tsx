@@ -8,6 +8,8 @@ import {
   Typography,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useAppSelector } from '../../app/hooks';
+import { activeChat } from '../../features/chat/chatSlice';
 
 interface IHeaderProps {
   onDrawerToggle: () => void;
@@ -16,6 +18,7 @@ interface IHeaderProps {
 export default function Header(props: IHeaderProps) {
   const { onDrawerToggle } = props;
   const theme = useTheme();
+  const selectedChat = useAppSelector(activeChat);
 
   return (
     <AppBar position="sticky" elevation={0}>
@@ -37,7 +40,7 @@ export default function Header(props: IHeaderProps) {
               component="p"
               sx={{ color: theme.palette.primary.main }}
             >
-              12345
+              {selectedChat}
             </Typography>
           </Grid>
         </Grid>

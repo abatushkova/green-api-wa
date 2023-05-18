@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { Box, useMediaQuery } from '@mui/material';
 import Aside from '../Aside/Aside';
-import Content from '../Content/Content';
-import Header from '../Header/Header';
+import Chat from '../Chat/Chat';
+import Base from '../Base/Base';
+import { useAppSelector } from '../../app/hooks';
+import { activeChat } from '../../features/chat/chatSlice';
 
 const drawerWidth = 320;
 
@@ -11,6 +13,7 @@ export default function Main() {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+  const selectedChat = useAppSelector(activeChat);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -33,8 +36,10 @@ export default function Main() {
         />
       </Box>
       <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-        <Header onDrawerToggle={handleDrawerToggle} />
-        <Content />
+        {selectedChat
+          ? <Chat onDrawerClick={handleDrawerToggle} />
+          : <Base />
+        }
       </Box>
     </Box>
   );
