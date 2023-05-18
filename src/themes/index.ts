@@ -101,12 +101,10 @@ theme = {
     MuiTextField: {
       styleOverrides: {
         root: {
+          backgroundColor: theme.palette.white.main,
           '& .MuiInputLabel-root': {
             color: theme.palette.gray.dark,
           },
-          '& .MuiInputBase-multiline': {
-            backgroundColor: theme.palette.white.main,
-          }
         },
       }
     },
