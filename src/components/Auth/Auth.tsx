@@ -11,12 +11,12 @@ import {
 } from '@mui/material';
 import { useAppDispatch } from '../../app/hooks';
 import { login } from '../../features/auth/authSlice';
-import { IUser } from "../../app/types";
+import { User } from "../../app/types";
 
 export default function Auth() {
   const theme = useTheme();
   const [isEmpty, setIsEmpty] = useState(false);
-  const [authForm, setAuthForm] = useState<IUser>({
+  const [authForm, setAuthForm] = useState<User>({
     idInstance: '',
     apiTokenInstance: '',
   });
