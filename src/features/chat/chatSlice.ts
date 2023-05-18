@@ -43,7 +43,6 @@ export const sendMessage = createAsyncThunk<
 
       return response.statusText;
     } catch (err) {
-      console.log(err);
       return thunkAPI.rejectWithValue({ message: 'Failed to send message!' });
     }
   }
@@ -66,13 +65,13 @@ export const loadMessages = createAsyncThunk<
           `${BASE_URL}waInstance${data.idInstance}/DeleteNotification/${data.apiTokenInstance}/${response.data.receiptId}`
         );
       }
+      console.log('load');
       console.log(response);
       if (response.status === 200) {
         return response.data;
       }
       return response.statusText;
     } catch (err) {
-      console.log(err);
       return thunkAPI.rejectWithValue({ message: 'Failed to load messages!' });
     }
   }
@@ -116,6 +115,9 @@ export const chatSlice = createSlice({
       }
       state.activeChat = payload;
     },
+    emptyErrorMessage(state, action) {
+      state.error = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(sendMessage.fulfilled, (state, action) => {
@@ -133,6 +135,7 @@ export const chatSlice = createSlice({
       if (payload) state.error = payload.message;
     });
     builder.addCase(loadMessages.fulfilled, (state, { payload }) => {
+      console.log('load fulfilled');
       console.log(state, payload);
       if (!payload) return state;
 
@@ -161,8 +164,10 @@ export const {
   addChat,
   deleteChat,
   setActiveChat,
+  emptyErrorMessage,
 } = chatSlice.actions;
 
 export const chatReducer = chatSlice.reducer;
 export const selectChatList = (state: RootState) => state.chat.chatList;
 export const selectActiveChat = (state: RootState) => state.chat.activeChat;
+export const selectError = (state: RootState) => state.chat.error;

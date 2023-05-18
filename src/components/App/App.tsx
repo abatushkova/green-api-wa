@@ -3,19 +3,23 @@ import { Box, CssBaseline } from '@mui/material';
 import Auth from '../Auth/Auth';
 import Main from '../Main/Main';
 import { useAppSelector } from '../../app/hooks';
+import { selectError } from '../../features/chat/chatSlice';
+import { selectUser } from '../../features/auth/authSlice';
+import Error from '../Error/Error';
 
 export default function App() {
-  const authState = useAppSelector(state => state.auth);
+  const user = useAppSelector(selectUser);
+  const error = useAppSelector(selectError);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    if (authState.idInstance && authState.apiTokenInstance) {
+    if (user.idInstance && user.apiTokenInstance) {
       setIsLoggedIn(true);
       return;
     }
 
     setIsLoggedIn(false);
-  }, [authState]);
+  }, [user, error]);
 
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh' }}>
@@ -25,6 +29,7 @@ export default function App() {
       ) : (
         <Auth />
       )}
+      {error ? <Error message={error} /> : null}
     </Box>
   );
 }
