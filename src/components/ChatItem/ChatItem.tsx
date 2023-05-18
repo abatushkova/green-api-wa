@@ -43,7 +43,6 @@ export default function ChatItem(props: ChatItemProps) {
           aria-label="Delete"
           size="small"
           onClick={handleDelete}
-          sx={{ mr: 0.5 }}
         >
           <DeleteIcon fontSize="inherit" />
         </IconButton>
