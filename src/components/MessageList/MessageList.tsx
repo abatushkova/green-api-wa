@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Stack } from '@mui/material';
+import React, { useEffect, useRef } from 'react';
+import { Stack, Box } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { loadMessages, selectActiveChat } from '../../features/chat/chatSlice';
 import { selectUser } from '../../features/auth/authSlice';
@@ -12,17 +12,29 @@ export default function MessageList() {
     state.chat.chatList.find(({ phoneNumber }) => phoneNumber === selectedChat)
   ));
   const user = useAppSelector(selectUser);
+  const chatRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    dispatch(loadMessages(user));
-  }, [dispatch, user]);
+    let ignore = false;
+
+    if (!ignore) {
+      dispatch(loadMessages(user));
+
+      if (chatRef.current) {
+        chatRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+
+    return () => {
+      ignore = true;
+    }
+  }, [dispatch, user, activeChat]);
 
   return (
     <Stack
       spacing={2}
       direction="column"
-      justifyContent="flex-end"
-      sx={{ height: '100%' }}
+      sx={{ py: 2 }}
     >
       {activeChat?.messages.map((message, index) => (
         <MessageItem
@@ -31,6 +43,7 @@ export default function MessageList() {
           text={message.text}
         />
       ))}
+      <Box ref={chatRef} />
     </Stack>
   );
 }
