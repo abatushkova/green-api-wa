@@ -35,7 +35,7 @@ export default function ChatItem(props: ChatItemProps) {
         selected={selected === phoneNumber}
         onClick={() => onChatClick(phoneNumber)}
       >
-        <ListItemText>{phoneNumber}</ListItemText>
+        <ListItemText>+{phoneNumber}</ListItemText>
       </ListItemButton>
       <ListItemSecondaryAction className="hidden-menu">
         <IconButton

@@ -40,7 +40,7 @@ export default function Header(props: HeaderProps) {
               component="p"
               sx={{ color: theme.palette.primary.main }}
             >
-              {selectedChat}
+              +{selectedChat}
             </Typography>
           </Grid>
         </Grid>
