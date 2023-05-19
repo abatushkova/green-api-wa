@@ -47,7 +47,7 @@ export default function ChatList() {
           ))
         ) : (
           <ListItem >
-            <ListItemText>Контактов нет</ListItemText>
+            <ListItemText>No Contacts</ListItemText>
           </ListItem>
         )}
       </List>
