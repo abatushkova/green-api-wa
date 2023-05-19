@@ -15,17 +15,12 @@ export default function ChatItemAdd() {
   const theme = useTheme();
   const [phoneNumber, setPhoneNumber] = useState('');
   const [status, setStatus] = useState('typing');
+  const [errorMessage, setErrorMessage] = useState('');
   const dispatch = useAppDispatch();
-
-  const setErrorMsg = () => {
-    if (status === 'error' && !phoneNumber) return 'Please enter phone number';
-    if (status === 'error') return 'Incorrect phone number';
-
-    return '';
-  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStatus('typing');
+    setErrorMessage('');
     setPhoneNumber(e.target.value);
   }
 
@@ -33,19 +28,27 @@ export default function ChatItemAdd() {
     e.preventDefault();
     if (!phoneNumber.trim()) {
       setStatus('error');
+      setErrorMessage('Please enter phone number');
       return;
     }
 
     if (checkNumber(phoneNumber)) {
       const newPhoneNumber = createNewNumber(phoneNumber);
 
-      dispatch(
-        addChat(newPhoneNumber)
-      );
-      setStatus('success');
-      setPhoneNumber('');
+      (async () => {
+        try {
+          dispatch(addChat(newPhoneNumber));
+          setStatus('success');
+          setPhoneNumber('');
+        } catch (err) {
+          setStatus('error');
+          setErrorMessage('Phone number already exists');
+          return;
+        }
+      })();
     } else {
       setStatus('error');
+      setErrorMessage('Incorrect phone number');
       return;
     }
   };
@@ -62,7 +65,7 @@ export default function ChatItemAdd() {
       >
         <TextField
           error={status === 'error' ?? 'true'}
-          helperText={setErrorMsg()}
+          helperText={errorMessage}
           label="Add phone number"
           variant="outlined"
           size="small" fullWidth
