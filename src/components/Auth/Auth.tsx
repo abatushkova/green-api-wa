@@ -57,7 +57,7 @@ export default function Auth() {
     }}>
       <Container maxWidth="sm">
         <Paper sx={{ py: 5, px: 3 }}>
-          <Typography variant="h1" mb={5} textAlign="center">WhatsApp Chat</Typography>
+          <Typography variant="h1" mb={5} textAlign="center">Green-Api ChatRoom</Typography>
           <Grid
             component="form"
             noValidate
