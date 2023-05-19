@@ -11,7 +11,7 @@ export default function Base() {
       flexGrow={1}
     >
       <Grid item>
-        <WhatsAppIcon color="secondary" sx={{ fontSize: 64 }} />
+        <WhatsAppIcon color="secondary" sx={{ fontSize: 100 }} />
       </Grid>
     </Grid>
   )
