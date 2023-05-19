@@ -36,8 +36,6 @@ export const sendMessage = createAsyncThunk<
           message: data.message,
         },
       );
-      // console.log('send');
-      // console.log(response);
 
       if (response.status === 200) {
         return data.message;
@@ -60,8 +58,6 @@ export const loadMessages = createAsyncThunk<
       const response = await axios.get(
         `${BASE_URL}waInstance${data.idInstance}/ReceiveNotification/${data.apiTokenInstance}`
       );
-      // console.log('load');
-      // console.log(response);
 
       if (response.data && response.data.receiptId) {
         await axios.delete(
@@ -93,12 +89,13 @@ export const chatSlice = createSlice({
       const newChat: ChatItem = {
         phoneNumber: payload,
         messages: [],
-      }
+      };
       const oldChat = state.chatList.find(
         ({ phoneNumber }) => phoneNumber === payload
       );
 
-      state.chatList = oldChat ? state.chatList : [...state.chatList, newChat];
+      if (oldChat) throw new Error();
+      state.chatList = [...state.chatList, newChat];
     },
     deleteChat(state, action) {
       const deletedChat = action.payload;
@@ -140,28 +137,35 @@ export const chatSlice = createSlice({
       if (payload) state.error = payload.message;
     });
     builder.addCase(loadMessages.fulfilled, (state, { payload }) => {
-      // console.log('load fulfilled');
-      // console.log(state, payload);
       if (!payload) return state;
 
-      const senderChatId = payload.body.senderData.chatId.replace(/@c.us/, '');
-      const senderMessage = payload.body.messageData.textMessageData.textMessage;
+      let senderChatId = state.activeChat;
+      let senderMessage = '';
+
+      switch(payload.body.typeWebhook) {
+        case 'incomingMessageReceived':
+          senderChatId = payload.body.chatId.replace(/@c.us/, '');
+          senderMessage = payload.body.messageData.textMessageData.textMessage;
+          break;
+        case 'outgoingMessageReceived':
+          senderChatId = payload.body.senderData.chatId.replace(/@c.us/, '');
+          senderMessage = payload.body.messageData.textMessageData.textMessage;
+          break;
+        default:
+          return;
+      }
 
       const newMessage: Message = {
         text: senderMessage,
         isMine: false,
       };
-      const activeChat = state.chatList.find(
+      const selectedChat = state.chatList.find(
         ({ phoneNumber }) => phoneNumber === senderChatId
       );
-      // console.log('sender');
-      // console.log(senderChatId, senderMessage);
 
-      activeChat!.messages = [...activeChat!.messages, newMessage];
+      selectedChat!.messages = [...selectedChat!.messages, newMessage];
     });
     builder.addCase(loadMessages.rejected, (state, { payload }) => {
-      // console.log('rejected');
-      // console.log(state, payload);
       if (payload) state.error = payload.message;
     });
   },
