@@ -24,11 +24,10 @@ export default function App() {
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh' }}>
       <CssBaseline />
-      {isLoggedIn ? (
-        <Main />
-      ) : (
-        <Auth />
-      )}
+      {isLoggedIn
+        ? <Main />
+        : <Auth />
+      }
       {error ? <Error message={error} /> : null}
     </Box>
   );

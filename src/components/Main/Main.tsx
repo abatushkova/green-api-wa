@@ -4,6 +4,7 @@ import { Box, useMediaQuery } from '@mui/material';
 import Aside from '../Aside/Aside';
 import Chat from '../Chat/Chat';
 import Base from '../Base/Base';
+import Header from '../Header/Header';
 import { useAppSelector } from '../../app/hooks';
 import { selectActiveChat } from '../../features/chat/chatSlice';
 
@@ -36,8 +37,9 @@ export default function Main() {
         />
       </Box>
       <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <Header onDrawerToggle={handleDrawerToggle} />
         {selectedChat
-          ? <Chat onDrawerClick={handleDrawerToggle} />
+          ? <Chat />
           : <Base />
         }
       </Box>

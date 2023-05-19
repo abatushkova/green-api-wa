@@ -34,13 +34,13 @@ export default function Header(props: HeaderProps) {
             </IconButton>
           </Grid>
           <Grid item>
-            <Typography component="h1" hidden>WhatsApp Chat</Typography>
+            <Typography component="h1" hidden>ChatRoom</Typography>
             <Typography
               variant="h6"
               component="p"
               sx={{ color: theme.palette.primary.main }}
             >
-              +{selectedChat}
+              {selectedChat ? `+${selectedChat}` : ''}
             </Typography>
           </Grid>
         </Grid>
