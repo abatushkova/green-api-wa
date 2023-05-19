@@ -8,7 +8,7 @@ import {
 import Logout from '@mui/icons-material/Logout';
 import { useAppDispatch } from '../../app/hooks';
 import { logout } from '../../features/auth/authSlice';
-import { setActiveChat, emptyErrorMessage } from '../../features/chat/chatSlice';
+import { setActiveChat, emptyErrorMessage, emptyChatList } from '../../features/chat/chatSlice';
 
 const CustomAvatar = styled(Avatar)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
@@ -18,8 +18,9 @@ export default function User() {
   const dispatch = useAppDispatch();
 
   const handleLogout = () => {
-    dispatch(emptyErrorMessage(''));
+    dispatch(emptyErrorMessage());
     dispatch(setActiveChat(''));
+    dispatch(emptyChatList());
     dispatch(logout());
   };
 

@@ -36,11 +36,12 @@ export const sendMessage = createAsyncThunk<
           message: data.message,
         },
       );
+      // console.log('send');
+      // console.log(response);
 
       if (response.status === 200) {
         return data.message;
       }
-
       return response.statusText;
     } catch (err) {
       return thunkAPI.rejectWithValue({ message: 'Failed to send message!' });
@@ -59,14 +60,15 @@ export const loadMessages = createAsyncThunk<
       const response = await axios.get(
         `${BASE_URL}waInstance${data.idInstance}/ReceiveNotification/${data.apiTokenInstance}`
       );
+      // console.log('load');
+      // console.log(response);
 
       if (response.data && response.data.receiptId) {
         await axios.delete(
           `${BASE_URL}waInstance${data.idInstance}/DeleteNotification/${data.apiTokenInstance}/${response.data.receiptId}`
         );
       }
-      console.log('load');
-      console.log(response);
+
       if (response.status === 200) {
         return response.data;
       }
@@ -115,8 +117,11 @@ export const chatSlice = createSlice({
       }
       state.activeChat = payload;
     },
-    emptyErrorMessage(state, action) {
-      state.error = action.payload;
+    emptyErrorMessage(state) {
+      state.error = '';
+    },
+    emptyChatList(state) {
+      state.chatList = [];
     },
   },
   extraReducers: (builder) => {
@@ -135,8 +140,8 @@ export const chatSlice = createSlice({
       if (payload) state.error = payload.message;
     });
     builder.addCase(loadMessages.fulfilled, (state, { payload }) => {
-      console.log('load fulfilled');
-      console.log(state, payload);
+      // console.log('load fulfilled');
+      // console.log(state, payload);
       if (!payload) return state;
 
       const senderChatId = payload.body.senderData.chatId.replace(/@c.us/, '');
@@ -149,12 +154,14 @@ export const chatSlice = createSlice({
       const activeChat = state.chatList.find(
         ({ phoneNumber }) => phoneNumber === senderChatId
       );
+      // console.log('sender');
+      // console.log(senderChatId, senderMessage);
 
       activeChat!.messages = [...activeChat!.messages, newMessage];
     });
     builder.addCase(loadMessages.rejected, (state, { payload }) => {
-      console.log('rejected');
-      console.log(payload);
+      // console.log('rejected');
+      // console.log(state, payload);
       if (payload) state.error = payload.message;
     });
   },
@@ -165,6 +172,7 @@ export const {
   deleteChat,
   setActiveChat,
   emptyErrorMessage,
+  emptyChatList,
 } = chatSlice.actions;
 
 export const chatReducer = chatSlice.reducer;

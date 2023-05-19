@@ -16,7 +16,7 @@ export default function Error(props: ErrorProps) {
   const error = useAppSelector(selectError);
 
   const handleClose = () => {
-    dispatch(emptyErrorMessage(''));
+    dispatch(emptyErrorMessage());
   }
 
   return (
