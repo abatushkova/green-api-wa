@@ -55,10 +55,10 @@ theme = {
       styleOverrides: {
         root: {
           '&.MuiTypography-h1': {
-            fontSize: 32,
+            fontSize: 28,
             fontWeight: 700,
             [theme.breakpoints.up('md')]: {
-              fontSize: 45,
+              fontSize: 36,
             },
           },
         },
