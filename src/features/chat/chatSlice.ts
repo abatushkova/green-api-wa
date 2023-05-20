@@ -9,6 +9,7 @@ interface ChatData {
   chatList: ChatItem[] | [];
   activeChat: string;
   error: string;
+  updatedAt: number;
 }
 
 interface MessageData {
@@ -79,6 +80,7 @@ const initialState: ChatData = {
   chatList: loadState() || [],
   activeChat: loadState(),
   error: '',
+  updatedAt: 0,
 };
 
 export const chatSlice = createSlice({
@@ -127,16 +129,18 @@ export const chatSlice = createSlice({
         text: action.payload,
         isMine: true,
       };
-      const activeChat = state.chatList.find(
+      const activeChatItem = state.chatList.find(
         ({ phoneNumber }) => phoneNumber === state.activeChat
       );
 
-      activeChat!.messages = [...activeChat!.messages, newMessage];
+      activeChatItem!.messages = [...activeChatItem!.messages, newMessage];
     });
     builder.addCase(sendMessage.rejected, (state, { payload }) => {
       if (payload) state.error = payload.message;
     });
     builder.addCase(loadMessages.fulfilled, (state, { payload }) => {
+      state.updatedAt = Number(new Date());
+
       if (!payload) return state;
 
       let senderChatId = state.activeChat;
@@ -183,3 +187,4 @@ export const chatReducer = chatSlice.reducer;
 export const selectChatList = (state: RootState) => state.chat.chatList;
 export const selectActiveChat = (state: RootState) => state.chat.activeChat;
 export const selectError = (state: RootState) => state.chat.error;
+export const selectUpdatedAt = (state: RootState) => state.chat.updatedAt;
