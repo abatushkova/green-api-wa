@@ -80,7 +80,7 @@ const initialState: ChatData = {
   chatList: loadState() || [],
   activeChat: loadState(),
   error: '',
-  updatedAt: 0,
+  updatedAt: Number(new Date()),
 };
 
 export const chatSlice = createSlice({
@@ -143,14 +143,11 @@ export const chatSlice = createSlice({
 
       if (!payload) return state;
 
-      let senderChatId = state.activeChat;
+      let senderChatId = '';
       let senderMessage = '';
 
       switch(payload.body.typeWebhook) {
         case 'incomingMessageReceived':
-          senderChatId = payload.body.chatId.replace(/@c.us/, '');
-          senderMessage = payload.body.messageData.textMessageData.textMessage;
-          break;
         case 'outgoingMessageReceived':
           senderChatId = payload.body.senderData.chatId.replace(/@c.us/, '');
           senderMessage = payload.body.messageData.textMessageData.textMessage;
@@ -167,7 +164,11 @@ export const chatSlice = createSlice({
         ({ phoneNumber }) => phoneNumber === senderChatId
       );
 
-      selectedChat!.messages = [...selectedChat!.messages, newMessage];
+      if (selectedChat) {
+        selectedChat.messages = [...selectedChat.messages, newMessage];
+      } else {
+        return state;
+      }
     });
     builder.addCase(loadMessages.rejected, (state, { payload }) => {
       if (payload) state.error = payload.message;
