@@ -14,14 +14,15 @@ export default function MessageList() {
   const user = useAppSelector(selectUser);
   const updatedAt = useAppSelector(selectUpdatedAt);
   const chatRef = useRef<HTMLDivElement>(null);
-  const didMount = useRef(false);
 
   useEffect(() => {
-    if (didMount.current) {
+    let ignore = false;
+    if (!ignore) {
       dispatch(loadMessages(user));
     }
-
-    didMount.current = true;
+    return () => {
+      ignore = true;
+    }
   }, [dispatch, user, updatedAt]);
 
   useEffect(() => {
