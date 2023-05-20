@@ -67,7 +67,7 @@ Left column contains field to create chat, chat list. To create chat enter phone
 ![add chat](../media/window02.jpeg?raw=true)
 
 Right column is for sending and receiving messages. To open chat select phone number.  
-Auto-load new text messages from WhatsApp is not presented in this project due to limited developer mode. To load messages refresh webpage or switch back and forth between chats.
+Auto-load new text messages from WhatsApp is not presented in this project. To load messages refresh webpage or switch back and forth between chats.
 
 ![chat preview](../media/window03.jpeg?raw=true)
 
