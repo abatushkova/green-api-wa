@@ -111,9 +111,7 @@ export const chatSlice = createSlice({
       }
     },
     setActiveChat(state, { payload }) {
-      if (state.activeChat === payload) {
-        state.activeChat = '';
-      }
+      if (state.activeChat === payload) return state;
       state.activeChat = payload;
     },
     emptyErrorMessage(state) {
